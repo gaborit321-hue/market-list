@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Market List</title>
+<link rel="manifest" href="manifest-market.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="The Market List">
+<meta name="theme-color" content="#2a1f10">
+<link rel="apple-touch-icon" href="logo-market.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Special+Elite&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Special+Elite&family=IM+Fell+English:ital@0;1&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:      #e2d0a0;
+  --paper-dark: #cfc09a; 
+  --paper-aged: #b8a870;
+  --paper-edge: #a89050;
+  --ink:        #1a120a;
+  --ink-mid:    #2e2010;
+  --ink-fade:   #5a4020;
+  --ink-faint:  #8a6a3a;
+  --blood:      #6b1515;
+  --blood-mid:  #8a2020;
+  --stamp-red:  rgba(107,21,21,0.15);
+  --line:       rgba(26,18,10,0.12);
+  --line-dark:  rgba(26,18,10,0.25);
+}
+
+html, body {
+  min-height: 100%;
+  background: #2a1f10;
+  font-family: 'Special Elite', cursive;
+  overflow-x: hidden;
+}
+
+/* ── WOOD BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    repeating-linear-gradient(
+      92deg,
+      transparent 0px,
+      transparent 40px,
+      rgba(0,0,0,0.03) 40px,
+      rgba(0,0,0,0.03) 41px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 8px,
+      rgba(0,0,0,0.02) 8px,
+      rgba(0,0,0,0.02) 9px
+    );
+  pointer-events: none;
+}
+
+/* ── PAPER SHEET ── */
+.app {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  background: var(--paper);
+  max-width: 760px;
+  margin: 0 auto;
+  box-shadow:
+    -4px 0 20px rgba(0,0,0,0.4),
+    4px 0 20px rgba(0,0,0,0.4),
+    0 0 60px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Paper texture */
+.app::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Aged edges */
+.app::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(139,100,40,0.12) 0px, transparent 24px),
+    linear-gradient(270deg, rgba(139,100,40,0.12) 0px, transparent 24px),
+    linear-gradient(180deg, rgba(139,100,40,0.08) 0px, transparent 32px),
+    linear-gradient(0deg, rgba(139,100,40,0.15) 0px, transparent 40px);
+  pointer-events: none;
+}
+
+/* ── HEADER ── */
+.header {
+  position: relative; z-index: 2;
+  padding: 36px 48px 28px;
+  border-bottom: 2px solid var(--ink);
+  background: linear-gradient(180deg, rgba(184,168,112,0.3) 0%, transparent 100%);
+}
+
+/* Red margin line */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 80px;
+  width: 1px;
+  background: rgba(139,0,0,0.25);
+}
+
+.header-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.brand { display: flex; flex-direction: column; gap: 3px; }
+
+.brand-sup {
+  font-family: 'Special Elite', cursive;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+}
+
+.brand-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.15);
+}
+
+.brand-sub {
+  font-family: 'Special Elite', cursive;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+  margin-top: 2px;
+}
+
+.header-right { text-align: right; padding-top: 4px; }
+
+.header-date {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-fade);
+  margin-bottom: 8px;
+}
+
+.header-count {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.header-count-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+}
+
+/* ── RULED LINES DECORATION ── */
+.ruled-lines {
+  position: relative; z-index: 2;
+  padding: 8px 0;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 23px,
+    var(--line) 23px,
+    var(--line) 24px
+  );
+  height: 32px;
+  border-bottom: 1px solid var(--line-dark);
+  opacity: 0.5;
+}
+
+/* ── MAIN ── */
+.main {
+  position: relative; z-index: 2;
+  flex: 1;
+  padding: 32px 48px;
+
+  /* Ruled lines background */
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 31px,
+    var(--line) 31px,
+    var(--line) 32px
+  );
+  background-position: 0 16px;
+}
+
+/* Red margin line on main too */
+.main::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 80px;
+  width: 1px;
+  background: rgba(139,0,0,0.2);
+  z-index: 0;
+}
+
+/* ── ADD ROW ── */
+.add-row {
+  position: relative; z-index: 1;
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.add-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-style: italic;
+  padding: 10px 0;
+  outline: none;
+  letter-spacing: 0.02em;
+}
+
+.add-input::placeholder { color: rgba(26,18,10,0.22); font-style: italic; }
+
+.add-submit {
+  background: transparent;
+  border: none;
+  font-family: 'Special Elite', cursive;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+  cursor: pointer;
+  padding: 10px 0 10px 16px;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.add-submit:hover { color: var(--ink); }
+
+/* ── TOOLBAR ── */
+.toolbar {
+  position: relative; z-index: 1;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.toolbar-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--ink-faint);
+  font-family: 'Special Elite', cursive;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  cursor: pointer;
+  padding: 2px 0 3px;
+  transition: all 0.2s;
+}
+
+.toolbar-btn:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.toolbar-btn.danger { color: rgba(107,21,21,0.5); border-bottom-color: rgba(107,21,21,0.3); }
+.toolbar-btn.danger:hover { color: var(--blood); border-bottom-color: var(--blood); }
+
+/* ── STRUCK ITEM ── */
+.item-done { opacity: 0.55; }
+
+.struck {
+  text-decoration: line-through;
+  text-decoration-color: var(--ink);
+  text-decoration-thickness: 1.5px;
+  color: var(--ink-faint) !important;
+}
+
+/* ── ADD BUTTON (keep for other uses) ── */
+.add-btn {
+  position: relative; z-index: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--ink-faint);
+  color: var(--ink-fade);
+  font-family: 'Special Elite', cursive;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 14px 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.add-btn:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── OPS LIST ── */
+.ops-list {
+  position: relative; z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── OPERATION CARD ── */
+.op-card {
+  background: transparent;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  transition: background 0.2s;
+  animation: inkIn 0.35s ease both;
+}
+
+.op-card:hover { background: rgba(139,100,40,0.04); }
+
+/* Risk high — red ink underline */
+.op-card.risk-high .op-codename {
+  color: var(--blood);
+  border-bottom: 1px solid rgba(107,21,21,0.3);
+  padding-bottom: 1px;
+}
+
+.op-card.status-done {
+  animation: strikeThrough 0.5s ease forwards;
+}
+
+.op-inner {
+  padding: 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Checkbox — stamp style */
+.op-status {
+  width: 20px; height: 20px;
+  border: 1.5px solid var(--ink-fade);
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+}
+
+.op-status:hover { border-color: var(--ink); background: rgba(26,18,10,0.05); }
+
+.op-status.done {
+  border-color: var(--blood);
+  background: var(--stamp-red);
+}
+
+.op-status.done::after {
+  content: '✕';
+  color: var(--blood);
+  font-size: 13px;
+  font-family: 'Special Elite', cursive;
+  line-height: 1;
+}
+
+/* Content */
+.op-content { flex: 1; min-width: 0; }
+
+.op-codename {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+}
+
+.op-meta {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.op-status-badge {
+  font-family: 'Special Elite', cursive;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.op-status-badge.high {
+  color: var(--blood-mid);
+  font-weight: bold;
+}
+
+.op-num {
+  font-family: 'Special Elite', cursive;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--ink-faint);
+  opacity: 0.5;
+}
+
+/* Delete */
+.op-delete {
+  width: 24px; height: 24px;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: var(--blood);
+  font-size: 14px;
+  font-family: 'Special Elite', cursive;
+}
+
+.op-card:hover .op-delete { opacity: 0.35; }
+.op-delete:hover { opacity: 0.9 !important; }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 60px 32px;
+}
+
+.empty-razor { font-size: 32px; margin-bottom: 16px; opacity: 0.2; color: var(--ink); }
+
+.empty-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--ink-fade);
+  margin-bottom: 6px;
+}
+
+.empty-sub {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  opacity: 0.5;
+}
+
+/* ── FOOTER ── */
+.footer-quote {
+  position: relative; z-index: 2;
+  padding: 20px 48px 36px;
+  border-top: 2px solid var(--ink);
+  background: linear-gradient(0deg, rgba(184,168,112,0.25) 0%, transparent 100%);
+}
+
+.footer-quote-text {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-fade);
+  letter-spacing: 0.03em;
+  text-align: center;
+  opacity: 0.65;
+}
+
+/* ── MODAL ── */
+.modal-bg {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(20,12,4,0.75);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s;
+  backdrop-filter: blur(2px);
+}
+
+.modal-bg.open { opacity: 1; pointer-events: all; }
+
+/* Modal = a new paper sheet */
+.modal {
+  background: #dfd0a0;
+  border: none;
+  border-top: 3px double var(--ink);
+  border-bottom: 3px double var(--ink);
+  padding: 0;
+  width: 100%;
+  max-width: 460px;
+  transform: translateY(12px) rotate(-0.3deg);
+  transition: transform 0.25s;
+  position: relative;
+  box-shadow: 3px 4px 20px rgba(0,0,0,0.35);
+}
+
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 64px;
+  width: 1px;
+  background: rgba(139,0,0,0.2);
+  z-index: 0;
+}
+
+.modal-bg.open .modal { transform: translateY(0) rotate(-0.3deg); }
+
+.modal-header {
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid var(--line-dark);
+  position: relative; z-index: 1;
+}
+
+.modal-header-label {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+  margin-bottom: 4px;
+}
+
+.modal-header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.modal-body {
+  padding: 20px 28px 24px;
+  position: relative; z-index: 1;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 31px,
+    rgba(26,18,10,0.08) 31px,
+    rgba(26,18,10,0.08) 32px
+  );
+  background-position: 0 8px;
+}
+
+.field-label {
+  font-family: 'Special Elite', cursive;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-fade);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.field-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--ink-fade);
+  color: var(--ink);
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 400;
+  padding: 6px 0 8px;
+  outline: none;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s;
+  margin-bottom: 24px;
+}
+
+.field-input:focus { border-bottom-color: var(--ink); }
+.field-input::placeholder { color: rgba(26,18,10,0.2); }
+
+.risk-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.risk-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--line-dark);
+  background: transparent;
+  color: var(--ink-fade);
+  font-family: 'Special Elite', cursive;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.risk-btn:hover { background: rgba(26,18,10,0.06); color: var(--ink); }
+.risk-btn.selected-low { background: rgba(26,18,10,0.1); border-color: var(--ink); color: var(--ink); }
+.risk-btn.selected-high { background: rgba(107,21,21,0.1); border-color: var(--blood); color: var(--blood); }
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn {
+  font-family: 'Special Elite', cursive;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 11px 22px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-cancel {
+  background: transparent;
+  color: var(--ink-faint);
+  border: 1px solid var(--line-dark);
+}
+
+.btn-cancel:hover { color: var(--ink); }
+
+.btn-confirm {
+  background: var(--ink);
+  color: var(--paper);
+  letter-spacing: 0.2em;
+}
+
+.btn-confirm:hover { background: var(--ink-mid); }
+
+/* ── ANIMATIONS ── */
+@keyframes inkIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes strikeThrough {
+  0%   { opacity: 1; }
+  40%  { opacity: 0.5; text-decoration: line-through; }
+  100% { opacity: 0; max-height: 0; padding: 0; overflow: hidden; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .header { padding: 24px 28px 20px; }
+  .header::before, .main::before { left: 52px; }
+  .main { padding: 24px 28px; }
+  .brand-title { font-size: 32px; }
+  .footer-quote { padding: 16px 28px 28px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-sup">Birmingham · 1919</div>
+        <div class="brand-title">The Market List</div>
+        <div class="brand-sub">Shelby Company Limited</div>
+      </div>
+      <div class="header-right">
+        <div class="header-date" id="header-date"></div>
+        <div class="header-count" id="header-count">0</div>
+        <div class="header-count-label">items remaining</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- INLINE ADD -->
+    <div class="add-row">
+      <input
+        type="text"
+        class="add-input"
+        id="add-input"
+        placeholder="Add an item..."
+        maxlength="80"
+        autocomplete="off"
+        onkeydown="handleAddKey(event)"
+      >
+      <button class="add-submit" onclick="addItem()">+ Add</button>
+    </div>
+
+    <!-- TOGGLE CHECKED -->
+    <div class="toolbar" id="toolbar" style="display:none">
+      <button class="toolbar-btn" id="hide-btn" onclick="toggleHide()">
+        Hide checked
+      </button>
+      <button class="toolbar-btn danger" onclick="clearChecked()">
+        Clear checked
+      </button>
+    </div>
+
+    <!-- LIST -->
+    <div class="ops-list" id="ops-list"></div>
+
+    <div class="empty-state" id="empty-state">
+      <div class="empty-razor">✦</div>
+      <div class="empty-title">The list is empty</div>
+      <div class="empty-sub">By order of the Peaky Blinders</div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-quote">
+    <div class="footer-quote-text" id="footer-quote"></div>
+  </div>
+
+</div>
+
+<script>
+// ── QUOTES ──
+const QUOTES = [
+  '"I don\'t pray. Kneeling in the mud is for the dead." — Thomas Shelby',
+  '"A man with a plan is always more dangerous than a man with a gun." — Thomas Shelby',
+  '"By order. By fear. By family." — Thomas Shelby',
+  '"Remorse is a waste of time. So are regrets." — Thomas Shelby',
+  '"I forget nothing. That\'s my curse — and my strength." — Thomas Shelby',
+  '"Everyone is lost. The difference is some accept it." — Thomas Shelby',
+  '"What you do when you don\'t have to determines who you\'ll be when you can\'t choose." — Thomas Shelby',
+];
+
+// ── DATE ──
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function formatDate() {
+  const d = new Date();
+  return DAYS[d.getDay()] + ', ' + d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+// ── STORAGE ──
+function load() { return JSON.parse(localStorage.getItem('market-list') || '[]'); }
+function save(items) { localStorage.setItem('market-list', JSON.stringify(items)); }
+
+// ── STATE ──
+let items = load();
+let hideChecked = false;
+
+// ── RENDER ──
+function render() {
+  const list   = document.getElementById('ops-list');
+  const empty  = document.getElementById('empty-state');
+  const count  = document.getElementById('header-count');
+  const toolbar = document.getElementById('toolbar');
+  const hideBtn = document.getElementById('hide-btn');
+
+  list.innerHTML = '';
+
+  const remaining = items.filter(i => !i.done).length;
+  const hasChecked = items.some(i => i.done);
+
+  count.textContent = remaining;
+  toolbar.style.display = hasChecked ? 'flex' : 'none';
+  hideBtn.textContent = hideChecked ? 'Show checked' : 'Hide checked';
+
+  const visible = hideChecked ? items.filter(i => !i.done) : items;
+
+  if (items.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+
+  // Active items first, checked at bottom
+  const sorted = [
+    ...visible.filter(i => !i.done),
+    ...visible.filter(i => i.done),
+  ];
+
+  sorted.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'op-card' + (item.done ? ' item-done' : '');
+    card.dataset.id = item.id;
+    card.style.animationDelay = (i * 0.03) + 's';
+
+    card.innerHTML = `
+      <div class="op-inner">
+        <div class="op-status${item.done ? ' done' : ''}" onclick="toggleDone('${item.id}')"></div>
+        <div class="op-content">
+          <div class="op-codename${item.done ? ' struck' : ''}">${item.name}</div>
+        </div>
+        <div class="op-delete" onclick="deleteItem('${item.id}')">✕</div>
+      </div>
+    `;
+
+    list.appendChild(card);
+  });
+}
+
+// ── ACTIONS ──
+function toggleDone(id) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  item.done = !item.done;
+  save(items);
+  render();
+}
+
+function deleteItem(id) {
+  items = items.filter(i => i.id !== id);
+  save(items);
+  render();
+}
+
+function clearChecked() {
+  items = items.filter(i => !i.done);
+  save(items);
+  render();
+}
+
+function toggleHide() {
+  hideChecked = !hideChecked;
+  render();
+}
+
+// ── ADD ──
+function addItem() {
+  const input = document.getElementById('add-input');
+  const name = input.value.trim();
+  if (!name) { input.focus(); return; }
+
+  items.unshift({ id: Date.now().toString(), name, done: false });
+  save(items);
+  render();
+  input.value = '';
+  input.focus();
+}
+
+function handleAddKey(e) {
+  if (e.key === 'Enter') addItem();
+}
+
+// ── INIT ──
+document.getElementById('header-date').textContent = formatDate();
+const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+document.getElementById('footer-quote').textContent = QUOTES[dayOfYear % QUOTES.length];
+
+render();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
+</script>
+</body>
+</html>
