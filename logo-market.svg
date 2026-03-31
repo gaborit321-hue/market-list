@@ -1,0 +1,106 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+<!-- Shadow -->
+<rect x="162" y="46" width="196" height="422" rx="3" fill="rgba(0,0,0,0.22)"/>
+
+<!-- Paper sheet -->
+<rect x="156" y="40" width="196" height="422" rx="2" fill="#e2d0a0"/>
+
+<!-- Ruled lines -->
+<line x1="156" y1="72"  x2="352" y2="72"  stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="85"  x2="352" y2="85"  stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="98"  x2="352" y2="98"  stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="111" x2="352" y2="111" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="124" x2="352" y2="124" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="137" x2="352" y2="137" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="150" x2="352" y2="150" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="163" x2="352" y2="163" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="176" x2="352" y2="176" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="189" x2="352" y2="189" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="202" x2="352" y2="202" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="215" x2="352" y2="215" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="228" x2="352" y2="228" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="241" x2="352" y2="241" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="254" x2="352" y2="254" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="267" x2="352" y2="267" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="280" x2="352" y2="280" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="293" x2="352" y2="293" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="306" x2="352" y2="306" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="319" x2="352" y2="319" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="332" x2="352" y2="332" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="345" x2="352" y2="345" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="358" x2="352" y2="358" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="371" x2="352" y2="371" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="384" x2="352" y2="384" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="397" x2="352" y2="397" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="410" x2="352" y2="410" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="423" x2="352" y2="423" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="436" x2="352" y2="436" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+<line x1="156" y1="449" x2="352" y2="449" stroke="rgba(26,18,10,0.09)" stroke-width="0.6"/>
+
+<!-- Red margin line -->
+<line x1="192" y1="40" x2="192" y2="462" stroke="rgba(139,0,0,0.3)" stroke-width="1"/>
+
+<!-- Header rule -->
+<line x1="156" y1="100" x2="352" y2="100" stroke="#1a120a" stroke-width="1.5"/>
+<line x1="156" y1="103" x2="352" y2="103" stroke="#1a120a" stroke-width="0.5"/>
+
+<!-- Title -->
+<text x="254" y="84" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-weight="900" font-size="18" fill="#1a120a" letter-spacing="0.5">The Market List</text>
+<text x="254" y="97" text-anchor="middle" font-family="Courier New, monospace" font-size="6" fill="#5a4020" letter-spacing="2.5">SHELBY CO. · BIRMINGHAM</text>
+
+<!-- Item 1 checked -->
+<rect x="199" y="117" width="9" height="9" rx="1" fill="rgba(107,21,21,0.1)" stroke="#6b1515" stroke-width="0.8"/>
+<text x="203.5" y="125" text-anchor="middle" font-family="Courier New, monospace" font-size="7" fill="#6b1515">x</text>
+<text x="213" y="126" font-family="Georgia, serif" font-style="italic" font-size="10" fill="#8a6a3a">Bread</text>
+<line x1="213" y1="122" x2="285" y2="122" stroke="#1a120a" stroke-width="0.8"/>
+
+<!-- Item 2 checked -->
+<rect x="199" y="132" width="9" height="9" rx="1" fill="rgba(107,21,21,0.1)" stroke="#6b1515" stroke-width="0.8"/>
+<text x="203.5" y="140" text-anchor="middle" font-family="Courier New, monospace" font-size="7" fill="#6b1515">x</text>
+<text x="213" y="141" font-family="Georgia, serif" font-style="italic" font-size="10" fill="#8a6a3a">Whisky</text>
+<line x1="213" y1="137" x2="285" y2="137" stroke="#1a120a" stroke-width="0.8"/>
+
+<!-- Item 3 active -->
+<rect x="199" y="147" width="9" height="9" rx="1" fill="transparent" stroke="#2e2010" stroke-width="0.8"/>
+<text x="213" y="156" font-family="Georgia, serif" font-style="italic" font-size="10" fill="#1a120a">Tobacco</text>
+
+<!-- Item 4 active -->
+<rect x="199" y="162" width="9" height="9" rx="1" fill="transparent" stroke="#2e2010" stroke-width="0.8"/>
+<text x="213" y="171" font-family="Georgia, serif" font-style="italic" font-size="10" fill="#1a120a">Butter</text>
+
+<!-- Item 5 active -->
+<rect x="199" y="177" width="9" height="9" rx="1" fill="transparent" stroke="#2e2010" stroke-width="0.8"/>
+<text x="213" y="186" font-family="Georgia, serif" font-style="italic" font-size="10" fill="#1a120a">Eggs</text>
+
+<!-- Item 6 active -->
+<rect x="199" y="192" width="9" height="9" rx="1" fill="transparent" stroke="#2e2010" stroke-width="0.8"/>
+<text x="213" y="201" font-family="Georgia, serif" font-style="italic" font-size="10" fill="#1a120a">Milk</text>
+
+<!-- Razor blade -->
+<g transform="translate(310, 360) rotate(-35)">
+  <rect x="-7" y="-36" width="14" height="72" rx="2" fill="#cfc09a" stroke="#8a7550" stroke-width="0.7"/>
+  <line x1="0" y1="-36" x2="0" y2="36" stroke="#8a7550" stroke-width="0.4"/>
+  <rect x="-3.5" y="-36" width="7" height="9" rx="1" fill="#b8a870" stroke="#8a7550" stroke-width="0.4"/>
+  <text x="0" y="5" text-anchor="middle" font-family="Courier New, monospace" font-size="4" fill="#5a4020">SCL</text>
+  <text x="0" y="11" text-anchor="middle" font-family="Courier New, monospace" font-size="3" fill="#7a6040">1919</text>
+  <line x1="-7" y1="-26" x2="-7" y2="26" stroke="rgba(255,255,255,0.35)" stroke-width="0.4"/>
+</g>
+
+<!-- Bottom rule -->
+<line x1="156" y1="430" x2="352" y2="430" stroke="#1a120a" stroke-width="1"/>
+<line x1="156" y1="433" x2="352" y2="433" stroke="#1a120a" stroke-width="0.4"/>
+
+<!-- Footer -->
+<text x="254" y="445" text-anchor="middle" font-family="Courier New, monospace" font-size="6" fill="#7a6040" letter-spacing="1.5">BY ORDER OF THE PEAKY BLINDERS</text>
+
+<!-- Aged corners -->
+<path d="M156 40 Q164 40 164 48 L156 48 Z" fill="#b8a870" opacity="0.5"/>
+<path d="M352 40 Q344 40 344 48 L352 48 Z" fill="#b8a870" opacity="0.5"/>
+<path d="M156 462 Q164 462 164 454 L156 454 Z" fill="#b8a870" opacity="0.6"/>
+<path d="M352 462 Q344 462 344 454 L352 462 Z" fill="#b8a870" opacity="0.6"/>
+
+<!-- Ink spot -->
+<ellipse cx="335" cy="104" rx="4" ry="2.5" fill="rgba(26,18,10,0.12)" transform="rotate(-15,335,104)"/>
+
+</svg>
