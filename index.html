@@ -83,14 +83,6 @@ body::before {
   background: linear-gradient(180deg, rgba(184,168,112,0.3) 0%, transparent 100%);
 }
 
-.header::before {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0; left: 56px;
-  width: 1px;
-  background: rgba(139,0,0,0.25);
-}
-
 .header-inner {
   display: flex;
   align-items: flex-start;
@@ -176,15 +168,6 @@ body::before {
   background: transparent;
 }
 
-.main::before {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0; left: 56px;
-  width: 1px;
-  background: rgba(139,0,0,0.2);
-  z-index: 0;
-}
-
 /* ── ADD ROW ── */
 .add-row {
   position: relative; z-index: 1;
@@ -229,7 +212,7 @@ body::before {
   position: relative; z-index: 1;
   display: flex;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   align-items: center;
 }
 
@@ -296,7 +279,6 @@ body::before {
 }
 
 .op-status:hover { border-color: var(--ink); background: rgba(26,18,10,0.05); }
-
 .op-status.done { border-color: var(--blood); background: var(--stamp-red); }
 
 .op-status.done::after {
@@ -327,7 +309,7 @@ body::before {
   opacity: 0;
   transition: opacity 0.2s;
   color: var(--blood);
-  font-size: 13px;
+  font-size: 14px;
   font-family: 'Special Elite', cursive;
 }
 
@@ -341,18 +323,18 @@ body::before {
   padding: 60px 32px;
 }
 
-.empty-razor { font-size: 28px; margin-bottom: 12px; opacity: 0.2; color: var(--ink); }
+.empty-razor { font-size: 32px; margin-bottom: 16px; opacity: 0.2; color: var(--ink); }
 
 .empty-title {
   font-family: 'Playfair Display', serif;
-  font-size: 18px;
+  font-size: 20px;
   font-style: italic;
   color: var(--ink-fade);
   margin-bottom: 6px;
 }
 
 .empty-sub {
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--ink-faint);
@@ -379,14 +361,13 @@ body::before {
 
 /* ── ANIMATIONS ── */
 @keyframes inkIn {
-  from { opacity: 0; transform: translateY(5px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 600px) {
   .header { padding: 16px 18px 14px; }
-  .header::before, .main::before { left: 44px; }
   .main { padding: 16px 18px; }
   .footer-quote { padding: 14px 18px 24px; }
   .brand-title { font-size: 24px; }
