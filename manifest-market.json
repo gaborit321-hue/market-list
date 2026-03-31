@@ -1,0 +1,11 @@
+{
+  "name": "The Market List",
+  "short_name": "Market List",
+  "start_url": "/market-list/",
+  "display": "standalone",
+  "background_color": "#2a1f10",
+  "theme_color": "#2a1f10",
+  "icons": [
+    { "src": "logo-market.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
